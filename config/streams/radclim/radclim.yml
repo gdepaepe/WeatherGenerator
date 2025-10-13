@@ -9,7 +9,7 @@
 
 RADCLIM :
   type : radclim
-  filenames : ['/data/brussel/vo/000/bvo00029/radar/RADCLIMrates_f16.zarr']
+  filenames : ['RADCLIMrates_f16.zarr']
   source : ["precip_intensity_EDK"]
   target : ["precip_intensity_EDK"]
   source_exclude : []
@@ -17,7 +17,7 @@ RADCLIM :
   loss_weight : 1.
   masking_rate : 0.6
   masking_rate_none : 0.05
-  token_size : 8
+  token_size : 64
   tokenize_spacetime : True
   max_num_targets: -1
   embed : 
