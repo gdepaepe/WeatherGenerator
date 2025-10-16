@@ -70,14 +70,15 @@ class DataReaderRadClim(DataReaderTimestep):
 
         # Downsampling with frequency
         if "frequency" in stream_info:
-            kwargs["frequency"] = str_to_timedelta(stream_info["frequency"])
+            frequency = str_to_timedelta(stream_info["frequency"])
+        else:
+            frequency = xr.infer_freq(ds.coords["time"])
         if "subsampling_rate" in stream_info:
             name = stream_info["name"]
             _logger.warning(
                 f"subsampling_rate specified for anemoi dataset for stream {name}. "
                 + "Use frequency instead."
             )
-        frequency = xr.infer_freq(ds.coords["time"])
         ds = ds.resample(time=frequency).nearest()
             
         # Set attributes
