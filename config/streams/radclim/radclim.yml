@@ -12,6 +12,7 @@ RADCLIM :
   filenames : ['RADCLIMrates_f16.zarr']
   source : ["precip_intensity_EDK"]
   target : ["precip_intensity_EDK"]
+  frequency: "03:00:00"
   source_exclude : []
   target_exclude : []
   loss_weight : 1.
