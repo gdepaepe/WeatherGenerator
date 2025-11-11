@@ -71,6 +71,7 @@ class DataReaderRadClim(DataReaderTimestep):
         # Downsampling with frequency
         if "frequency" in stream_info:
             frequency = str_to_timedelta(stream_info["frequency"])
+            ds = ds.resample(time=frequency).nearest()
         else:
             frequency = xr.infer_freq(ds.coords["time"])
         if "subsampling_rate" in stream_info:
@@ -79,14 +80,14 @@ class DataReaderRadClim(DataReaderTimestep):
                 f"subsampling_rate specified for anemoi dataset for stream {name}. "
                 + "Use frequency instead."
             )
-        ds = ds.resample(time=frequency).nearest()
+        _logger.warning(f"FREQUENCY: {frequency}")
             
         # Set attributes
-        self.properties = {"stream_id": 88,} # WHICH NBR TI CHOOSE???
+        self.properties = {"stream_id": 0,} # WHICH NBR TO CHOOSE???
         period = pd.to_timedelta(frequency).to_timedelta64()
         self.variable = list(ds.data_vars.keys())[0] # RadClim dataset has only 1 variable
-        self.latitudes = ds.lat.values
-        self.longitudes = ds.lon.values
+        self.latitudes = ds.lat.values.astype(np.float32)
+        self.longitudes = ds.lon.values.astype(np.float32)
         self.datetimes = ds.time.values
         data_start_time = self.datetimes[0]
         data_end_time = self.datetimes[-1]
@@ -120,8 +121,8 @@ class DataReaderRadClim(DataReaderTimestep):
         _logger.info(f"{ds_name}: target channels: {self.target_channels}")
         _logger.info(f"{ds_name}: geoinfo channels: {self.geoinfo_channels}")
 
-        self.mean = self.ds.attrs["mean dBZ (Marshal Palmer with a=200, b=1.6)"]
-        self.stdev = self.ds.attrs["std dBZ (Marshal Palmer with a=200, b=1.6)"]
+        self.mean = np.array([self.ds.attrs["mean dBZ (Marshal Palmer with a=200, b=1.6)"]], dtype=np.float32)
+        self.stdev = np.array([self.ds.attrs["std dBZ (Marshal Palmer with a=200, b=1.6)"]], dtype=np.float32)
 
     @override
     def init_empty(self) -> None:
