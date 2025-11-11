@@ -72,10 +72,13 @@ class DataReaderAnemoi(DataReaderTimestep):
                 f"subsampling_rate specified for anemoi dataset for stream {name}. "
                 + "Use frequency instead."
             )
+        if "thinning" in stream_info:
+            kwargs["thinning"] = stream_info["thinning"]
+            _logger.info(f"THINNING: {stream_info["thinning"]}")
         ds: Dataset = anemoi_datasets.open_dataset(
             ds0, **kwargs, start=tw_handler.t_start, end=tw_handler.t_end
         )
-
+        _logger.info(f"FREQUENCY: {ds.frequency}")
         period = np.timedelta64(ds.frequency)
         data_start_time = ds.dates[0]
         data_end_time = ds.dates[-1]
