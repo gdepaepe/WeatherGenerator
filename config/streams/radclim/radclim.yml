@@ -8,17 +8,19 @@
 # nor does it submit to any jurisdiction.
 
 RADCLIM :
-  type : radclim
-  filenames : ['RADCLIMrates_f16.zarr']
-  source : ["precip_intensity_EDK"]
-  target : ["precip_intensity_EDK"]
-  frequency: "03:00:00"
-  source_exclude : []
-  target_exclude : []
+  #type : radclim
+  type : anemoi
+  #filenames : ['RADCLIMrates_f16.zarr']
+  filenames : ['radclim-rates-2017-2023-5m-v1.zarr']
+  #source : ["precip_intensity_EDK"]
+  #target : ["precip_intensity_EDK"]
+  source : ["precip_intensity_dbZ"]
+  target : ["precip_intensity_dbZ"]
+  frequency: "00:05:00"
   loss_weight : 1.
   masking_rate : 0.6
   masking_rate_none : 0.05
-  token_size : 64
+  token_size : 1024
   tokenize_spacetime : True
   max_num_targets: -1
   embed : 
