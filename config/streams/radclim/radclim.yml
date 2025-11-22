@@ -16,17 +16,21 @@ RADCLIM :
   #target : ["precip_intensity_EDK"]
   source : ["precip_intensity_dbZ"]
   target : ["precip_intensity_dbZ"]
-  frequency: "00:05:00"
+  frequency: "01:00:00"
+  # added by Geert: thinning, trim_edge
+  thinning: 4
+  trim_edge: 125
   loss_weight : 1.
   masking_rate : 0.6
   masking_rate_none : 0.05
-  token_size : 1024
+  token_size : 64
+  sampling_rate_target : 0.2
   tokenize_spacetime : True
-  max_num_targets: -1
+  max_num_targets: 8192
   embed : 
     net : transformer
     num_tokens : 1
-    num_heads : 8
+    num_heads : 2
     dim_embed : 256
     num_blocks : 2
   embed_target_coords :
