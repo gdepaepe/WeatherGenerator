@@ -75,6 +75,9 @@ class DataReaderAnemoi(DataReaderTimestep):
         if "thinning" in stream_info:
             kwargs["thinning"] = stream_info["thinning"]
             _logger.info(f"THINNING: {stream_info["thinning"]}")
+        if "trim_edge" in stream_info:
+            kwargs["trim_edge"] = stream_info["trim_edge"]
+            _logger.info(f"TRIM_EDGE: {stream_info["trim_edge"]}")
         ds: Dataset = anemoi_datasets.open_dataset(
             ds0, **kwargs, start=tw_handler.t_start, end=tw_handler.t_end
         )
