@@ -1,0 +1,17 @@
+#
+# Run with --config ./config/geert_config.yml:
+# ../WeatherGenerator-private/hpc/launch-slurm.py --from-run-id lfr79awq  --options  'freeze_modules=".*ERA5.*"' istep=0 --config ./config/geert_config.yml
+#
+streams_directory: "/p/home/jusers/depaepe1/juwels/WeatherGenerator/config/streams/radclim"
+num_epochs: 32
+start_date: 201701010000
+end_date: 202103310000
+start_date_val: 202104010000
+end_date_val: 202201010000
+len_hrs: 1
+step_hrs: 1
+forecast_steps: 12
+analysis_streams_output : ['RADCLIM']
+wgtags:
+  org: "VUB"
+  exp: "RadClim"
